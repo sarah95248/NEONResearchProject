@@ -1,0 +1,9 @@
+---
+title: "index.Rmd"
+output: 
+  html_document:
+    theme: cerulean
+    highlight: pygments
+---
+
+This is the Github Page for my NEON Research Project.
