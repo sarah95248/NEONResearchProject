@@ -575,7 +575,7 @@ Figure 23. Most genera in Burkholderiales are only associated with one MAG and f
 
 #### pH
 
-```{r, warning=FALSE}
+```{r, warning=FALSE, fig.width=8}
 NEON_combined_gamma %>% 
 ggplot(aes(x = fct_rev(fct_infreq(Order)), y = soilInWaterpH)) +
   geom_boxplot() +
@@ -756,7 +756,7 @@ Figure 34. Both families are equally present at all three land cover types prese
 
 ## Burkholderiales
 
-Overall, three major orders (*Steroidobacterales*, *Burkholderiales*, and *Xanthomonadales*) make up the majority of *Gammaproteobacteria* within the NEON data both overall and at Toolik specifically. Burkholderiales was of particular interest as it is a well-characterized order (relative to the other two orders) and is the most taxonomically diverse and widespread orders among all of the NEON sites. This order is ubiqitous in many different natural environments and contains human pathogens and ecologically relevant members capable of nitrogen fixation and photosynthesis.
+Overall, three major orders (*Steroidobacterales*, *Burkholderiales*, and *Xanthomonadales*) make up the majority of *Gammaproteobacteria* within the NEON data both overall and at Toolik specifically. *Burkholderiales* was of particular interest as it is a well-characterized order (relative to the other two orders) and is the most taxonomically diverse and widespread orders among all of the NEON sites. This order is ubiqitous in many different natural environments and contains human pathogens and ecologically relevant members capable of nitrogen fixation and photosynthesis.
 
 *Burkholderiales* contains five novel MAGs at the genus level and has a wide range of genome sizes ranging from 1.6 Mb to 6.7 Mb. Approximately half of all *Burkholderiales* MAGs are within the *Burkholderiaceae* family. This has been the most frequently observed family within the order consistently. There are 10 total different families within *Burkholderiales* observed in the data set. Overall, *Burkholderiaceae* has the widest range of MAG sizes (1.9 Mb to 7.5 Mb) and the second most abundant family SG8-39 has smaller genome sizes all under 4.5 Mb.
 
