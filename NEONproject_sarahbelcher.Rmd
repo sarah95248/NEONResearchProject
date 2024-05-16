@@ -34,13 +34,13 @@ library(ggstar)
 
 # Abstract
 
-Soil microbiome research and characterization is an important field of microbiology for its industrial applications and ability to advance biological knowledge. In this project, NEON metagenomic sequencing data (@noauthor_home_nodate) from Toolik Field Station and for the class Gammaproteobacteria was analyzed to characterize the soil microbiome under these two conditions. Phylogenetic visualizations, taxonomic summary graphs, and graphs incorporating environmental data were generated to look for interesting patterns in the data. Findings support the fact that Gammaproteobacteria is an extremely diverse class and analysis of its abundant Burkholderiales order revealed it has five novel genera. Findings from Toolik revealed mostly expected groups present but some lower abundance groups that are uncharacterized like the biogeochemically relevant Armatimonadota.
+Soil microbiome research and characterization is an important field of microbiology for its industrial applications and ability to advance biological knowledge. In this project, NEON metagenomic sequencing data (@noauthor_home_nodate) from Toolik Field Station and for the class *Gammaproteobacteria* was analyzed to characterize the soil microbiome under these two conditions. Phylogenetic visualizations, taxonomic summary graphs, and graphs incorporating environmental data were generated to look for interesting patterns in the data. Findings support the fact that *Gammaproteobacteria* is an extremely diverse class and analysis of its abundant *Burkholderiales* order revealed it has five novel genera. Findings from Toolik revealed mostly expected groups present but some lower abundance groups that are uncharacterized like the biogeochemically relevant *Armatimonadota*.
 
 # Introduction and Motivating Reasons
 
 ## Motivating Reasons
 
-Microbiology as a discipline is relatively young and with omics approaches exploding in only the last 15 years, we have really just begun to capture the full extent of microbial diversity. Metagenomic analyses of soil microbial communities suggest that the majority of microbes exist in low abundance in the environment and are unculturable. Because of this we rely on metagenomic studies like the NEON project to discover and characterize new microbial life.
+Microbiology as a discipline is relatively young and with omics approaches exploding in only the last 15 years, we have really just begun to capture the full extent of microbial diversity. Metagenomic analyses of soil microbial communities suggest that the majority of microbes exist in low abundance in the environment and are unculturable. Because of this, we rely on metagenomic studies like the NEON project to discover and characterize new microbial life.
 
 Soil microbes have countless practical applications. From biofertilizer development to the bioremediation of heavy metal pollutants to the synthesis of antibiotics with pharmaceutical applications; the soil microbiome truly has countless applications that greatly improve our quality of life. Besides these practical reasons it is also beneficial to study novel soil microbes because many of them exhibit strange lifestyles that push the boundaries of what is traditionally considered to be life. Understanding these unique metabolisms will further our scientific knowledge and may provide insights into other important biological phenomena.
 
@@ -62,29 +62,33 @@ Toolik Tower (@science_tool_2017)
 
 ## Gammaproteobacteria
 
-Gammaproteobacteria is a Class of bacteria within the Phylum Pseudomonadota (proteobacteria). It is gram negative and consists of both aerobic and anaerobic species. Some of the morphologies of Gammaproteobacteria include rods, curved rods, cocci, spirilla, and filaments (@noauthor_gammaproteobacteria_2024). 
+*Gammaproteobacteria* is a class of bacteria within the phylum *Pseudomonadota* (*Proteobacteria*). It is gram negative and consists of both aerobic and anaerobic species. Some of the morphologies of *Gammaproteobacteria* include rods, curved rods, cocci, spirilla, and filaments (@noauthor_gammaproteobacteria_2024).
 
-Many Gammaproteobacteria are found in different terrestrial and marine environments. They have a variety of roles important within these environments, a notable one being in hydrothermal vents. Also, there are two types of Gammaproteobacteria, Alteromonadales and Vibrionales, that are significant for nutrient cycling in marine and coastal ecosystems.
+Many *Gammaproteobacteria* are found in different terrestrial and marine environments. They have a variety of roles important within these environments, a notable one being in hydrothermal vents. Also, there are two types of *Gammaproteobacteria*, *Alteromonadales* and *Vibrionales*, that are significant for nutrient cycling in marine and coastal ecosystems.
 
-Some types of Gammaproteobacteria belong to certain important medical, ecological, and scientific groups of bacteria, in particular those in the families Enterobacteriaceae, Vibrionaceae, and Pseudomonadaceae. This includes some human pathogens such as Yersinia pestis (the Plague), Vibrio cholerae (Cholera), Pseudomonas aeruginosa, Escherichia coli, and some species of Salmonella (@noauthor_gammaproteobacteria_2024).
+Some types of *Gammaproteobacteria* belong to certain important medical, ecological, and scientific groups of bacteria, in particular those in the families *Enterobacteriaceae*, *Vibrionaceae*, and *Pseudomonadaceae*. This includes some human pathogens such as *Yersinia pestis* (the Plague), *Vibrio cholerae* (Cholera), *Pseudomonas aeruginosa*, *Escherichia coli*, and some species of *Salmonella* (@noauthor_gammaproteobacteria_2024).
 
-Vibrio cholerae is a type of Gammaproteobacteria. (@noauthor_cholera_nodate)
+*Vibrio cholerae* is a type of *Gammaproteobacteria*. (@noauthor_cholera_nodate)
 
-![](images/vibrio cholerae.png)
+![](images/vibrio%20cholerae.png)
 
 ## Sankey Plots
 
-Sankey plot showing the individual assemblies of Gammaproteobacteria at all NEON sites:
+Sankey plot showing the individual assemblies of *Gammaproteobacteria* at all NEON sites:
 
-![](images/sankeyplotindividual.png)
+```{r, fig.width=9, fig.height=8}
+knitr::include_url("images/lab14/sankey-NEON_MAG_ind_gam_pavian.txt.html")
+```
 
-Sankey plot showing the combined assemblies of Gammaproteobacteria at all NEON sites:
+Sankey plot showing the individual assemblies of all bacteria at Toolik Field Station:
 
-![](images/sankeyplotcombined.png)
+```{r, fig.width=9, fig.height=8}
+knitr::include_url("images/lab14/sankey-NEON_MAG_ind_tool_pavian.txt.html")
+```
 
 # Methods
 
-To learn more about Toolik Field Station and Gammaproteobacteria, my group decided to separate our data analysis into three parts. The first would be studying all bacteria found at Toolik Field Station, the second is Gammaproteobacteria at all NEON field sites, and the third is Gammaproteobacteria at just Toolik Field Station. Using the collected NEON metagenomic data, we created phylogenetic trees and summary graphs to analyze our field site and bacterial group with the goal of identifying interesting trends in the data.
+To learn more about Toolik Field Station and *Gammaproteobacteria*, my group decided to separate our data analysis into three parts. The first would be studying all bacteria found at Toolik Field Station, the second is *Gammaproteobacteria* at all NEON field sites, and the third is *Gammaproteobacteria* at just Toolik Field Station. Using the collected NEON metagenomic data, we created phylogenetic trees and summary graphs to analyze our field site and bacterial group with the goal of identifying interesting trends in the data.
 
 ## Loading in the Data
 
@@ -196,7 +200,6 @@ tree_arc <- read.tree("data/NEON/gtdbtk.ar53.decorated.tree")
 tree_bac <- read.tree("data/NEON/gtdbtk.bac120.decorated.tree")
 ```
 
-
 # Results
 
 ## Part I: Toolik Field Station
@@ -216,6 +219,7 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
   NEON_combined +
   geom_point(mapping=aes(color=Phylum)) 
 ```
+
 Figure 1. An overview of the phylogenetic relationships between all phyla present at Toolik Filed Station. The most abundant groups, Acidobacteria, Pseudomonadota, and Actinomycetota are all known to dominate soil environments.
 
 ```{r, fig.width=10, warning=FALSE}
@@ -223,9 +227,10 @@ ggtree(tree_bac_TOOL_MAGs, layout="circular")  %<+%
   NEON_combined + 
   geom_point2(mapping=aes(color= `Bin Completeness`, size=`Total Number of Bases`))
 ```
+
 Figure 2. Phylogenetic tree showing relationship between bin completeness and total number of base pairs. The largest MAGs appear to be the most complete while smaller MAGs are less complete. This may be the result of 1. the bins actually being incomplete or 2. binning programs labelling obligate symbionts as being incomplete because they lack key genes necessary for life.
 
-### Taxonomic Breakdown 
+### Taxonomic Breakdown
 
 ```{r}
 NEON_MAGs_TOOL <- NEON_MAGs_bact_ind %>%
@@ -254,7 +259,7 @@ ggplot(aes(x = fct_rev(fct_infreq(Phylum)), fill = Class)) +
   ggtitle("Figure 4. Number of MAGs per Phylum at Toolik")
 ```
 
-Figure 4. All phyla present at Toolik colored by Order. Notably, Gammaproteobacteria comprises around half of all Psuedomontada. 
+Figure 4. All phyla present at Toolik colored by Order. Notably, Gammaproteobacteria comprises around half of all Psuedomontada.
 
 ```{r, fig.width=12, fig.height=8}
 NEON_MAGs_TOOL %>% 
@@ -266,7 +271,7 @@ NEON_MAGs_TOOL %>%
   ggtitle("Figure 5. Number of MAGs per Class at Toolik")
 ```
 
-Figure 5.  Classes present at Toolik Field Station, colored by Order. A total of 18 Gammaproteobacteria are present at the site. It is slightly less abundant than Alphaproteobacteria, the other class within its phylum.
+Figure 5. Classes present at Toolik Field Station, colored by Order. A total of 18 Gammaproteobacteria are present at the site. It is slightly less abundant than Alphaproteobacteria, the other class within its phylum.
 
 ```{r}
 ggplotly(
@@ -312,7 +317,7 @@ NEON_MAGs_TOOL1 %>%
   ggtitle("Figure 8. Relationship Between MAG Size and Completeness at Toolik")
 ```
 
-Figure 8. Relationship between MAG size and completeness colored by phylum. There is no obvious positive correlation between MAG size and completion, although the least complete MAGs around 50% are all on the smaller side.  
+Figure 8. Relationship between MAG size and completeness colored by phylum. There is no obvious positive correlation between MAG size and completion, although the least complete MAGs around 50% are all on the smaller side.
 
 ### Environmental Factors
 
@@ -470,7 +475,7 @@ ggplot(aes(x = fct_rev(fct_infreq(Order)), fill = Site.x)) +
   ggtitle("Figure 16. Numbers of Gammaproteobacteria by Order")
 ```
 
-Figure 16. The numbers of Gammaproteobacteria MAGs per order. This is colored by site. There are three orders that dominate the Gammaproteobacteria in the NEON data. There are 6 significantly less abundant orders that only show up at 1 site each. 
+Figure 16. The numbers of Gammaproteobacteria MAGs per order. This is colored by site. There are three orders that dominate the Gammaproteobacteria in the NEON data. There are 6 significantly less abundant orders that only show up at 1 site each.
 
 ```{r, fig.width=11, fig.height=13}
 NEON_combined_gamma %>% 
@@ -642,7 +647,6 @@ ggplot(aes(x = `Ecosystem Subtype`, y = soilTemp, color = Order)) +
 
 Figure 28. Overall, Gammaproteobacteria MAGs are more prevalent in Temperate Forests and Tundra ecosystems. This is likely because these ecosystem types were sampled more frequently. The most abundant orders are ubiqiutous among all of the ecosystem subtypes. Xanthomonadales is one of the most abundant orders and it was the only order to grow in the desert which makes sense as it can also tolerate higher temperatures.
 
-
 ## Part III: Gammaproteobacteria at Toolik Field Station
 
 ### Phylogenetic Trees
@@ -742,25 +746,24 @@ NEON_combined_gamma_tool %>%
   theme(legend.position="bottom")
 ```
 
-Figure 34. Both families are equally present at all three land cover types present at Toolik. Significantly more Steroidobacteracee live in shrub scrubs and herbaceous sedges than dwarf scrubs. 
-
+Figure 34. Both families are equally present at all three land cover types present at Toolik. Significantly more Steroidobacteracee live in shrub scrubs and herbaceous sedges than dwarf scrubs.
 
 # Discussion and Conclusion
 
-## Gammaproteobacteria 
+## Gammaproteobacteria
 
-Gammaproteobacteria are ubiqitous in the NEON data, found in thirteen different sites from very different regions. The full genome size range of Gammaproteobacteria MAGs sampled is 1.3 Mb to 7.3 Mb. Most Gammaproteobacteria grew in acidic environments under pH 6 but a few outliers from varying orders grew in neutral pHs over 8. Most Gammaproteobacteria grew in soils under 15°C with one outlier growing above 30°C. Most Gammaproteobacteria grew at lower elevations (below 1,000 m) and they were primarily found in temperate forest ecosystems. It is important to note with these environmental factors that more sampling in the NEON data set could simply have been done under certain conditions thus over representing MAGs.
+*Gammaproteobacteria* are ubiqitous in the NEON data, found in thirteen different sites from very different regions. The full genome size range of *Gammaproteobacteria* MAGs sampled is 1.3 Mb to 7.3 Mb. Most *Gammaproteobacteria* grew in acidic environments under pH 6 but a few outliers from varying orders grew in neutral pHs over 8. Most *Gammaproteobacteria* grew in soils under 15°C with one outlier growing above 30°C. Most *Gammaproteobacteria* grew at lower elevations (below 1,000 m), and they were primarily found in temperate forest ecosystems. It is important to note with these environmental factors that more sampling in the NEON data set could simply have been done under certain conditions thus over representing MAGs.
 
 ## Burkholderiales
 
-  Overall, three major orders (Steroidobacterales, Burkholderiales, and Xanthomonadales) make up the majority of Gammaproteobacteria within the NEON data both overall and at Toolik specifically. Burkholderiales was of particular interest as it is a well-characterized order (relative to the other two orders) and is the most taxonomically diverse and widespread orders among all of the NEON sites. This order is ubiqitous in many different natural environments and contains human pathogens and ecologically relevant members capable of nitrogen fixation and photosynthesis.
-  
-  Burkholderiales contains five novel MAGs at the genus level and has a wide range of genome sizes ranging from 1.6 Mb to 6.7 Mb. Approximately half of all Burkholderiales MAGs are within the Burkholderiaceae family. This has been the most frequently observed family within the order consistently. There are 10 total different families within Burkholderiales observed in the data set. Overall, Burkholderiaceae has the widest range of MAG sizes (1.9 Mb to 7.5 Mb) and the second most abundant family SG8-39 has smaller genome sizes all under 4.5 Mb.
+Overall, three major orders (*Steroidobacterales*, *Burkholderiales*, and *Xanthomonadales*) make up the majority of *Gammaproteobacteria* within the NEON data both overall and at Toolik specifically. Burkholderiales was of particular interest as it is a well-characterized order (relative to the other two orders) and is the most taxonomically diverse and widespread orders among all of the NEON sites. This order is ubiqitous in many different natural environments and contains human pathogens and ecologically relevant members capable of nitrogen fixation and photosynthesis.
+
+*Burkholderiales* contains five novel MAGs at the genus level and has a wide range of genome sizes ranging from 1.6 Mb to 6.7 Mb. Approximately half of all *Burkholderiales* MAGs are within the *Burkholderiaceae* family. This has been the most frequently observed family within the order consistently. There are 10 total different families within *Burkholderiales* observed in the data set. Overall, *Burkholderiaceae* has the widest range of MAG sizes (1.9 Mb to 7.5 Mb) and the second most abundant family SG8-39 has smaller genome sizes all under 4.5 Mb.
 
 ## Toolik Field Station
- 
-Overall, Toolik Field Station hosts a wide diversity of microbes. The most abundant groups, Acidobacteria, Pseudomonadota, and Actinomycetota are all known to dominate soil environments. There are lesser characterized phyla present in lower abundance like Patescibacteria (unculturable nanobacteria) and the ecologically relevant Armatimonadota that can degrade complex carbohydrates. Most MAGs are between 2 and 5 Mb. There are some phyla that are outside the normal distribution. Specifically there are two Patescibacteria MAGs below 1 Mb, two Planctomycetota MAGs around and above 8 Mb and two Pseudomonadota MAGs around and above 8 Mb. There is a clearly positive relationship between genome size and number of genes present which is expected however there was no correlation between completeness and genome size.
-  
-Soils at Toolik are acidic ranging from 4.8-6.2. Soils at Toolik are of low temperatures, ranging from 2-8°C. Most bacteria at Toolik are most abundant around 5 °C. There is no direct correlation between soil pH and temperature. Most subplots sampled have acidic pHs from 5-5.4 and low temperatures from 2-4 °C. Three subplots sampled have higher temperatures at and over 8°C. There is no direct correlation between soil pH and temperature. The three land cover types at Toolik are dwarf shrubs (shrubs under 20 cm tall), shrub scrubs (shrubs under 5 meters tall where the overall vegetation is at least 20% shrub), and sedge herbaceous (areas composed of at least 80% sedges and forbs). The two most abundant phyla, Acidobacteriota and Pseudomonadota, are significantly less prevalent in shrub scrubs than other land cover types.
+
+Overall, Toolik Field Station hosts a wide diversity of microbes. The most abundant groups, *Acidobacteria*, *Pseudomonadota*, and *Actinomycetota* are all known to dominate soil environments. There are lesser characterized phyla present in lower abundance like *Patescibacteria* (unculturable nanobacteria) and the ecologically relevant *Armatimonadota* that can degrade complex carbohydrates. Most MAGs are between 2 and 5 Mb. There are some phyla that are outside the normal distribution. Specifically there are two *Patescibacteria* MAGs below 1 Mb, two *Planctomycetota* MAGs around and above 8 Mb, and two *Pseudomonadota* MAGs around and above 8 Mb. There is a clearly positive relationship between genome size and number of genes present which is expected however there was no correlation between completeness and genome size.
+
+Soils at Toolik are acidic ranging from 4.8-6.2. Soils at Toolik are of low temperatures, ranging from 2-8°C. Most bacteria at Toolik are most abundant around 5 °C. There is no direct correlation between soil pH and temperature. Most subplots sampled have acidic pHs from 5-5.4 and low temperatures from 2-4 °C. Three subplots sampled have higher temperatures at and over 8°C. There is no direct correlation between soil pH and temperature. The three land cover types at Toolik are dwarf shrubs (shrubs under 20 cm tall), shrub scrubs (shrubs under 5 meters tall where the overall vegetation is at least 20% shrub), and sedge herbaceous (areas composed of at least 80% sedges and forbs). The two most abundant phyla, *Acidobacteriota* and *Pseudomonadota*, are significantly less prevalent in shrub scrubs than other land cover types.
 
 # References
