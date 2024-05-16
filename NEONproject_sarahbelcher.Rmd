@@ -256,7 +256,7 @@ ggplot(aes(x = fct_rev(fct_infreq(Phylum)), fill = Class)) +
 
 Figure 4. All phyla present at Toolik colored by Order. Notably, Gammaproteobacteria comprises around half of all Psuedomontada. 
 
-```{r, fig.width=12}
+```{r, fig.width=12, fig.height=8}
 NEON_MAGs_TOOL %>% 
   ggplot(aes(x = fct_rev(fct_infreq(Class)), fill=`Order`)) +
   geom_bar() +
@@ -372,7 +372,7 @@ Figure 12. There is no major relationship between the phyla present and elevatio
 
 #### Land Cover Type
 
-```{r, fig.width=10}
+```{r, fig.width=10, fig.height=8}
 NEON_combined_tool %>% 
    ggplot(aes(x=`Phylum`, fill=Class)) +
   geom_bar() +
@@ -513,81 +513,254 @@ ggplotly(
 )
 ```
 
-Figure 19. The number of novel Gammaproteobacteris present int he data set. The second most abundant order, Burkholderiales, has the highest number of novel MAGs.
+Figure 19. The number of novel Gammaproteobacteris present in the data set. The second most abundant order, Burkholderiales, has the highest number of novel MAGs.
+
+```{r}
+ggplotly(NEON_combined_gamma %>% 
+ggplot(aes(x = fct_rev(fct_infreq(Order)), y = `Total Number of Bases`, color = `Family`)) +
+  geom_point() +
+  coord_flip() +
+  xlab("Order") +
+  ylab("MAG Size (base pairs)") +
+  ggtitle("Figure 20. MAG Size per Order in Gammaproteobacteria")
+)
+```
+
+Figure 20. Overview of MAG Size of Gammaproteobacteria. Once again we see a few orders dominate. There are a relatively wide range of genome sizes in these orders from under 2 Mb to 7/8 Mb. As expected the least abundant MAGs all have smaller genomes.
+
+#### Burkholderiales Taxonomy
+
+```{r, fig.height=5}
+NEON_combined_gamma_burk %>% 
+  ggplot(aes(x = fct_rev(fct_infreq(Family)), fill = Genus)) +
+  geom_bar() +
+  coord_flip() +
+  xlab("Families") +
+  ylab("Number of MAGs") +
+  ggtitle("Figure 21. Number of Burkholderiales by Family")
+```
+
+Figure 21. Taxonomic breakdown of the Burkholderiales order. Burkholderiaceae is by far the most abundant family, having two subfamilies and many genera. Four Burkholderiales families are comprised entirely of novel genera. Overall this is an order with many novel MAGs compared to the other orders in Gammaproteobacteria.
+
+```{r, fig.height=5}
+NEON_combined_gamma_burk %>% 
+  ggplot(aes(x = fct_rev(fct_infreq(Family)), y = `Total Number of Bases`, color = Genus)) +
+  geom_point() +
+  coord_flip() +
+  xlab("Families") +
+  ylab("MAG Size (base pairs)") +
+  ggtitle("Figure 22. MAG Size of Burkholderiales by Family")
+```
+
+Figure 22. Here MAG size by family shows that the most abundant family Burkholderiaceae has a wide range of genome sizes, with most being on the larger size. As expected the least abundant MAGs all have smaller genomes.
+
+```{r, fig.width=10}
+NEON_combined_gamma_burk %>% 
+  ggplot(aes(x = fct_rev(fct_infreq(Genus)), fill = Site.x)) +
+  geom_bar() +
+  coord_flip() +
+  xlab("Genus") +
+  ylab("Number of MAGs") +
+  ggtitle("Figure 23. Genera in Burkholderiales")
+```
+
+Figure 23. Most genera in Burkholderiales are only associated with one MAG and five are novel. The most abundant genus is SCGC-AG-212-J23 which is in a similarly alphanumerically named family. Overall all of these genera are relatively unknown and recently disovered via metagenomic sequencing.
+
+### Environmental Factors Influencing Gammaproteobacteria
+
+#### pH
+
+```{r, warning=FALSE}
+NEON_combined_gamma %>% 
+ggplot(aes(x = fct_rev(fct_infreq(Order)), y = soilInWaterpH)) +
+  geom_boxplot() +
+  coord_flip() +
+  xlab("Order") +
+  ylab("Soil pH in Water") +
+  ggtitle("Figure 24. Relationship Between Soil pH and Orders in Gammaproteobacteria")
+```
+
+Figure 24. There appears to be no strong relationship between any given order and pH of the soil. Overall Xanthomonadales and Steroidobacterales both prefer acidic soils with pH around 5. Interestingly there is one outlier in Xanthomonadales growing in a strong neutral pH around 9.
+
+#### Temperature
+
+```{r, warning=FALSE, fig.width=9, fig.height=6}
+NEON_combined_gamma %>% 
+ggplot(aes(x = fct_rev(fct_infreq(Order)), y = soilTemp)) +
+  geom_boxplot() +
+  coord_flip() +
+  xlab("Order") +
+  ylab("Temperature (Celsius)") +
+  ggtitle("Figure 25. Relationship Between Temperature and Orders in Gammaproteobacteria")
+```
+
+Figure 25. More abundant orders clearly prefer colder temperatures. This is expected as field site where this class was most abundant was Toolik where soils are generally cold year round. The most abundant order has a particularly wide range of temperatures it grows in ranging from nearly 0 °C to 37 °C.
+
+```{r, warning=FALSE, fig.width=8}
+NEON_combined_gamma %>%
+  ggplot(aes(x = `soilTemp`, y = `soilInWaterpH`, color = Order)) +
+  geom_point() +
+  coord_flip() +
+  geom_jitter() +
+  xlab("Temperature (Celsius)") + 
+  ylab("Soil pH in Water") +
+  ggtitle("Figure 26. Relationship Between Temperature and Soil pH in Gammaproteobacteria")
+```
+
+Figure 26. Many Gammaproteobacteria MAGs cluster in the bottom left corner of the graph indicating they grow in colder temperatures (below 10 °C) and acidic pH's (under 5.5).
+
+#### Elevation
+
+```{r, fig.width=8, warning=FALSE}
+NEON_combined_gamma1 <- NEON_combined_gamma %>%
+  mutate(Order = as.factor(Order))
+
+NEON_combined_gamma1 %>%
+  ggplot(aes(x = `soilTemp`, y = `Elevation In Meters`, color = Order)) +
+  geom_point() +
+  coord_flip() +
+  geom_jitter() +
+  xlab("Temperature (Celsius)") + 
+  ylab("Elevation (m)") +
+  ggtitle("Figure 27. Relationship Between Temperature and Elevation in Gammaproteobacteria")
+```
+
+Figure 27. Many Gammaproteobacteria MAGs cluster in the bottom left corner of the graph indicating they grow in lower elevations at colder temperatures. This is likely due to more sampling being done at those lower elevations.
+
+#### Ecosystem Type
+
+```{r, fig.width=10, warning=FALSE}
+NEON_combined_gamma %>% 
+ggplot(aes(x = `Ecosystem Subtype`, y = soilTemp, color = Order)) +
+  geom_point() +
+  coord_flip() +
+  xlab("Ecosystem Subtype") +
+  ylab("Temperature (Celsius)") +
+  ggtitle("Figure 28. Relationship Between Temperature and Ecosystem Subtype in Gammaproteobacteria") +
+  theme(axis.text.x = element_text(size = 12), axis.text.y = element_text(size = 12))
+```
+
+Figure 28. Overall, Gammaproteobacteria MAGs are more prevalent in Temperate Forests and Tundra ecosystems. This is likely because these ecosystem types were sampled more frequently. The most abundant orders are ubiqiutous among all of the ecosystem subtypes. Xanthomonadales is one of the most abundant orders and it was the only order to grow in the desert which makes sense as it can also tolerate higher temperatures.
 
 
 ## Part III: Gammaproteobacteria at Toolik Field Station
 
-This graph shows the total MAG counts for different Families of Gammaproteobacteria at Toolik Field Station. The Families were colored by Genus.
+### Phylogenetic Trees
+
+```{r}
+gammatool_MAGs_label <- NEON_combined_gamma_tool$`Bin ID`
+
+tree_bac_gammatool_MAGs <-drop.tip(tree_bac,tree_bac$tip.label[-match(gammatool_MAGs_label, tree_bac$tip.label)])
+```
+
+```{r, warning=FALSE}
+ggtree(tree_bac_gammatool_MAGs, layout="rectangular", branch.length = "none")  %<+%
+  NEON_combined + 
+ geom_point2(mapping=aes(color= `Family`, size=`Total Number of Bases`)) 
+```
+
+Figure 29. At Toolik the 2 Gammaproteobacteria orders that are present are the Burkholderiales and Steroidobacterales which are the two most prevelant orders. Genome size is very consistent besides one very small (under 2Mb) Steroidobacterales outlier. Burkholderiales is once again diverse at the family level.
+
+### Taxonomic Breakdown
 
 ```{r}
 NEON_combined_gamma_tool %>%
   ggplot(aes(x = fct_rev(fct_infreq(Family)), fill=`Genus`)) +
   geom_bar(position = position_dodge2(width = 0.9, preserve = "single")) +
   coord_flip() +
-  labs(title = "MAG Counts of Families of Gammaproteobacteria in TOOL", x = "Family", y = "Count") +
-  theme(legend.text = element_text(size = 8),  
+  labs(title = "Figure 30. Number of Gammaproteobacteria Families at Toolik", x = "Family", y = "Count") +
+  theme(legend.text = element_text(size = 9),  
         legend.key.size = unit(0.5, "cm"))
 ```
 
-This graph shows the In-situ soil temperatures of soil at approximately 10cm deep that different Families of Gammaproteobacteria were collected.
+Figure 30. Overall Burkholderiales is a more taxonomically diverse order at both the family and genus level than Steroidobacterales. This holds up both at Toolik and in general within the data. Bog-1198 is the dominant genus within Steroidobacterales whereas Burkholderiaceae A is the most prevelant genus within Burkholderiales.
 
 ```{r}
-NEON_combined_tool %>%
-  filter(str_detect(`Class`, "Gammaproteobacteria")) %>%
-  ggplot(aes(x = `soilTemp`, fill = Family)) +
+NEON_combined_gamma_tool %>% 
+  ggplot(aes(x = fct_rev(fct_infreq(Order)), y = `Total Number of Bases`)) +
+  geom_boxplot() +
+  coord_flip() +
+  xlab("Orders") +
+  ylab("MAG Size (base pairs)") +
+  ggtitle("Figure 31. MAG Size of Gammaproteobacteria Orders at Toolik")
+```
+
+Figure 31. On average Burkholderiales MAGs have larger genomes than Steroidobacterales MAGs at Toolik. However Steroidobacterales has a much larger range of observed genome sizes. Particularly there is a MAG under 1 Mb.
+
+```{r, fig.width=10, fig.height=6}
+NEON_combined_gamma_tool1 <- NEON_combined_gamma_tool %>%
+  mutate(Family = as.factor(Family))
+
+NEON_combined_gamma_tool1 %>%
+  ggplot(aes(x = `Bin Completeness`, y = `Total Number of Bases`, color = Family)) +
+  geom_point() +
+  coord_flip() +
+  geom_jitter() +
+  xlab("MAG Size (base pairs)") + 
+  ylab("Bin Completeness") +
+  ggtitle("Figure 32. Relationship Between Gammaproteobacteria MAG Size and Completeness at Toolik") +
+  theme(axis.text.x = element_text(size = 12), 
+        axis.text.y = element_text(size = 12), 
+        axis.title.x = element_text(size = 14), 
+        axis.title.y = element_text(size = 14),
+        title = element_text(size = 12))
+```
+
+Figure 32. As expected on average larger MAGs have higher completeness scores than smaller MAGs. Specifically the very small Steroidobacterales MAG has a completeness under 60%. There is no relationship between a specific order or family having on average higher completeness scores.
+
+#### Burkholderiales at Toolik
+
+```{r, fig.width=8}
+NEON_combined_gamma_burk2 <- NEON_combined_gamma_burk %>% 
+  filter(`Site ID.x` == "TOOL") %>% 
+   mutate(Family = as.factor(Family)) %>% 
+  mutate(Genus = as.factor(Genus))
+
+NEON_combined_gamma_burk2 %>% 
+ggplot(aes(x = Family, y = soilTemp, color = Genus)) +
+  geom_point(size = 4) +
+  coord_flip() +
+  xlab("Family") +
+  ylab("Temperature (Celsius)") +
+  ggtitle("Figure 33. Temperature Impact on Burkholderiales Families at Toolik")
+```
+
+Figure 33. The diverse order Burkholderiales is mostly present at lower temperatures in Toolik likely becasue these soils are simply colder. There is one outlier in SG8-39 family which is observed growing at 8.5°C.
+
+### Environmental Factors
+
+#### Land Cover Type
+
+```{r, fig.width=9}
+NEON_combined_gamma_tool %>% 
+   ggplot(aes(x=`Family`, fill=Genus)) +
   geom_bar() +
   coord_flip() +
-  labs(title = "Families of Gammaproteobacteria at Different Soil Temperatures in TOOL", x = "Soil Temperature (ºC)", y = "Count")
+  facet_wrap(vars(nlcdClass), scales="free_y", ncol=3) +
+  labs(title="Figure 34. Relationship Between National Land Cover Type and Phyla Present at Toolik", x= "Phylum", y="Number of MAGs") +  
+  theme_classic() +
+  theme(legend.position="bottom")
 ```
 
-This graph shows the National Land Cover Database Vegetation Types and the dates their samples were collected.
+Figure 34. Both families are equally present at all three land cover types present at Toolik. Significantly more Steroidobacteracee live in shrub scrubs and herbaceous sedges than dwarf scrubs. 
 
-```{r}
-NEON_combined_tool %>%
-  filter(str_detect(`Class`, "Gammaproteobacteria")) %>%
-  ggplot(aes(y = `Sample Collection Date`, fill = `nlcdClass`)) +
-  geom_bar() +
-  coord_flip() +
-  labs(title = "NLCD Vegetation Type and Sample Collection Date", x = "nlcdClass", y = "Date")
-```
-
-This graph shows how the pH of the soil collected that was measured in calcium chloride solution changes depending on the elevation. It was filtered to show only Gammaproteobacteria in Toolik Field Station and is colored by Genus.
-
-```{r}
-ggplotly(
-  NEON_combined_tool %>%
-  filter(str_detect(`Class`, "Gammaproteobacteria")) %>%
-    ggplot(aes(x = `soilInCaClpH`, y = `Elevation In Meters`)) +
-  geom_point(aes(color=Genus)) +
-  labs(title = "Effects of Elevation on the pH of Soil Measured in CaCl", x = "Soil in CaCl Solution (pH)", y = "Elevation (m)")
-)
-```
-
-This graph shows the Orders of Gammaproteobactera at Toolik Field Station that have novel bacteria.
-
-```{r}
-NEON_MAGS_bact_ind_gamma <- NEON_MAGs_bact_ind %>%
-  filter(str_detect(`Class`, "Gammaproteobacteria"))
-
-ggplotly(
-  NEON_MAGS_bact_ind_gamma %>%
-  filter(is.na(Order) | is.na(Family) | is.na(Genus)) %>%
-  ggplot(aes(x = Order, fill = Family)) +
-  geom_bar() +
-  coord_flip() +
-  guides(fill = "none") +
-  labs(
-    title = "Orders of Gammaproteobacteria with Novel Bacteria",
-    x = "Order",
-    y = "Number of Novel Bacteria"
-  )
-)
-```
-
-
-### Phylogenetic Trees
 
 # Discussion and Conclusion
+
+## Gammaproteobacteria 
+
+Gammaproteobacteria are ubiqitous in the NEON data, found in thirteen different sites from very different regions. The full genome size range of Gammaproteobacteria MAGs sampled is 1.3 Mb to 7.3 Mb. Most Gammaproteobacteria grew in acidic environments under pH 6 but a few outliers from varying orders grew in neutral pHs over 8. Most Gammaproteobacteria grew in soils under 15°C with one outlier growing above 30°C. Most Gammaproteobacteria grew at lower elevations (below 1,000 m) and they were primarily found in temperate forest ecosystems. It is important to note with these environmental factors that more sampling in the NEON data set could simply have been done under certain conditions thus over representing MAGs.
+
+## Burkholderiales
+
+  Overall, three major orders (Steroidobacterales, Burkholderiales, and Xanthomonadales) make up the majority of Gammaproteobacteria within the NEON data both overall and at Toolik specifically. Burkholderiales was of particular interest as it is a well-characterized order (relative to the other two orders) and is the most taxonomically diverse and widespread orders among all of the NEON sites. This order is ubiqitous in many different natural environments and contains human pathogens and ecologically relevant members capable of nitrogen fixation and photosynthesis.
+  
+  Burkholderiales contains five novel MAGs at the genus level and has a wide range of genome sizes ranging from 1.6 Mb to 6.7 Mb. Approximately half of all Burkholderiales MAGs are within the Burkholderiaceae family. This has been the most frequently observed family within the order consistently. There are 10 total different families within Burkholderiales observed in the data set. Overall, Burkholderiaceae has the widest range of MAG sizes (1.9 Mb to 7.5 Mb) and the second most abundant family SG8-39 has smaller genome sizes all under 4.5 Mb.
+
+## Toolik Field Station
+ 
+Overall, Toolik Field Station hosts a wide diversity of microbes. The most abundant groups, Acidobacteria, Pseudomonadota, and Actinomycetota are all known to dominate soil environments. There are lesser characterized phyla present in lower abundance like Patescibacteria (unculturable nanobacteria) and the ecologically relevant Armatimonadota that can degrade complex carbohydrates. Most MAGs are between 2 and 5 Mb. There are some phyla that are outside the normal distribution. Specifically there are two Patescibacteria MAGs below 1 Mb, two Planctomycetota MAGs around and above 8 Mb and two Pseudomonadota MAGs around and above 8 Mb. There is a clearly positive relationship between genome size and number of genes present which is expected however there was no correlation between completeness and genome size.
+  
+Soils at Toolik are acidic ranging from 4.8-6.2. Soils at Toolik are of low temperatures, ranging from 2-8°C. Most bacteria at Toolik are most abundant around 5 °C. There is no direct correlation between soil pH and temperature. Most subplots sampled have acidic pHs from 5-5.4 and low temperatures from 2-4 °C. Three subplots sampled have higher temperatures at and over 8°C. There is no direct correlation between soil pH and temperature. The three land cover types at Toolik are dwarf shrubs (shrubs under 20 cm tall), shrub scrubs (shrubs under 5 meters tall where the overall vegetation is at least 20% shrub), and sedge herbaceous (areas composed of at least 80% sedges and forbs). The two most abundant phyla, Acidobacteriota and Pseudomonadota, are significantly less prevalent in shrub scrubs than other land cover types.
 
 # References
